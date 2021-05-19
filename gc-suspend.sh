@@ -44,7 +44,7 @@ fi
 echo $LINE
 
 ZONE=$(echo ${LINE} | cut -d" " -f 2)
-IP=$(echo ${LINE} | cut -d" " -f 5)
+IP=$(echo ${LINE} | perl -ne '/\d\s+?(\d+.\d+.\d+.\d+)\s*?[A-Z]*$/; print "$1\n"')
 
 OUTPUT=$(gcloud beta compute instances suspend ${NAME} --project=${PROJECT} --zone=${ZONE} 2>&1 |tee /dev/tty)
 

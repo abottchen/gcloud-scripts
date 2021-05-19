@@ -43,7 +43,7 @@ LINE=$(echo "${LIST}" | egrep -e "^${NAME}\s")
 
 echo $LINE
 
-IP=$(echo ${LINE} | cut -d" " -f 5)
+IP=$(echo ${LINE} | perl -ne '/\d\s+?(\d+.\d+.\d+.\d+)\s*?[A-Z]*$/; print "$1\n"')
 
 HOSTLINE="${IP} ${NAME}.c.${PROJECT}.internal ${NAME}"
 

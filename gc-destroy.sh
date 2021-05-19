@@ -42,7 +42,7 @@ fi
 echo $LINE
 
 ZONE=$(echo ${LINE} | cut -d" " -f 2)
-IP=$(echo ${LINE} | cut -d" " -f 5)
+IP=$(echo ${LINE} | perl -ne '/\d\s+?(\d+.\d+.\d+.\d+)\s*?[A-Z]*$/; print "$1\n"')
 
 OUTPUT=$(gcloud beta compute instances delete ${NAME} --project=${PROJECT} --zone=${ZONE} 2>&1 |tee /dev/tty)
 
@@ -52,9 +52,17 @@ if [[ $? != 1 ]]; then
 fi
 
 if [[ ${IP} ]]; then
-  grep $IP /etc/hosts
-  if [[ $? != 1 ]]; then
-    echo "Removing old /etc/hosts entry.  Root password required."
-    sudo -E sed -i .bak -e "/$IP/d" /etc/hosts
+  # Don't know if this is possible, but I don't want to delete multiple things
+  if [[ $(grep ${IP} /etc/hosts | wc -l ) -gt 1 ]]; then
+    echo "ERROR: Multiple host entries found matching '${IP}'.  Cowarding out on hosts update"
+    exit
+  fi
+  
+  if [[ ${IP} ]]; then
+    grep $IP /etc/hosts
+    if [[ $? != 1 ]]; then
+      echo "Removing old /etc/hosts entry for ${IP}.  Root password required."
+      sudo -E sed -i .bak -e "/$IP/d" /etc/hosts
+    fi
   fi
 fi
