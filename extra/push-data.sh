@@ -3,7 +3,7 @@
 scp -r ~/dbk/vsphere/.vim $1:.
 scp -r ~/dbk/vsphere/bashrc $1:.bashrc
 scp -r ~/dbk/vsphere/vimrc $1:.vimrc
-scp kubectl-completion.sh $1:kubectl-completion.sh
+scp extra/* $1:.
 
 ssh $1 sudo cp -r ./.vim /root/.vim
 ssh $1 'sudo sh -c "cat ~adam/.bashrc >> /root/.bashrc"'

@@ -1,17 +1,19 @@
 #!/bin/bash
 
-PROJECT="support-lab-poc"
+#PROJECT="support-lab-poc"
+PROJECT="adam-316219"
 
 function usage {
   cat <<EOT
-Usage: gc-destroy.sh -n <instance name>
+Usage: gc-destroy.sh -n <instance name> [-p <project>]
 EOT
 }
 
-while getopts n: flag
+while getopts n:p:h flag
 do
     case "${flag}" in
         n) NAME=${OPTARG};;
+        p) PROJECT=${OPTARG};;
         h) usage; exit 0;;
     esac
 done
@@ -24,6 +26,7 @@ fi
 
 cat <<EOT
 NAME=$NAME
+PROJECT=$PROJECT
 EOT
 
 LIST=$(gcloud compute instances list --project=${PROJECT})

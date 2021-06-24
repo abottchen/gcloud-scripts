@@ -1,6 +1,7 @@
 #!/bin/bash
 
-PROJECT="support-lab-poc"
+#PROJECT="support-lab-poc"
+PROJECT="adam-316219"
 
 function usage {
   cat <<EOT
@@ -8,7 +9,7 @@ Usage: gc-list.sh [-p <project>]
 EOT
 }
 
-while getopts h:p: flag
+while getopts hp: flag
 do
     case "${flag}" in
         p) PROJECT=${OPTARG};;
