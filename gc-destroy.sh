@@ -69,3 +69,5 @@ if [[ ${IP} ]]; then
     fi
   fi
 fi
+
+~/bin/refresh-gcloud-instances.sh

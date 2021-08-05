@@ -61,3 +61,5 @@ if [[ ${IP} ]]; then
     sudo -E sed -i .bak -e "/$IP/d" /etc/hosts
   fi
 fi
+
+~/bin/refresh-gcloud-instances.sh

@@ -57,3 +57,5 @@ fi
 
 echo "Adding new host entry: '$HOSTLINE'.  Root password required."
 sudo -E bash -c "echo $HOSTLINE >> /etc/hosts"
+
+~/bin/refresh-gcloud-instances.sh
