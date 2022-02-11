@@ -1,6 +1,7 @@
 #!/bin/bash
 
 PROJECT="adam-316219"
+ZONE="us-west1-b"
 
 function usage {
   cat <<EOT
@@ -27,4 +28,4 @@ CLUSTER=$CLUSTER
 PROJECT=$PROJECT
 EOT
 
-gcloud container clusters delete --project ${PROJECT} ${CLUSTER}
+gcloud container clusters delete --project ${PROJECT} --zone=${ZONE} ${CLUSTER}

@@ -2,6 +2,7 @@
 
 LABELS="user=adam"
 PROJECT="adam-316219"
+ZONE="us-west1-b"
 
 function usage {
   cat <<EOT
@@ -31,4 +32,4 @@ LABELS=$LABELS
 PROJECT=$PROJECT
 EOT
 
-gcloud container clusters create ${CLUSTER} --labels=${LABELS} --project=${PROJECT} --release-channel None --machine-type e2-custom-6-16384 --num-nodes 1 --addons HorizontalPodAutoscaling,HttpLoadBalancing,GcePersistentDiskCsiDriver --no-enable-autoupgrade --no-enable-autorepair
+gcloud container clusters create ${CLUSTER} --labels=${LABELS} --project=${PROJECT} --release-channel None --machine-type e2-custom-6-16384 --zone=${ZONE} --num-nodes 1 --addons HorizontalPodAutoscaling,HttpLoadBalancing,GcePersistentDiskCsiDriver --no-enable-autoupgrade --no-enable-autorepair

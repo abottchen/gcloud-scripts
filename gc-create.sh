@@ -2,9 +2,13 @@ LABELS="user=adam"
 #PROJECT="support-lab-poc"
 PROJECT="adam-316219"
 TYPE="n2-custom-8-16384"
+#TYPE="n2-custom-8-4096"
 ZONE="us-west1-b"
-#IMAGE="centos-7-v20210609"
-IMAGE="centos-8-v20210721"
+#IMAGE="centos-8-v20210721"
+#IMAGE="projects/rocky-linux-cloud/global/images/rocky-linux-8-v20220126"
+IMAGE="projects/ubuntu-os-cloud/global/images/ubuntu-2004-focal-v20220118"
+#IMAGE="projects/rhel-cloud/global/images/rhel-8-v20220126"
+#IMAGE="projects/rhel-cloud/global/images/rhel-7-v20220126"
 
 function usage {
   cat <<EOT
