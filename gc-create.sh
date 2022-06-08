@@ -4,20 +4,15 @@ PROJECT="adam-316219"
 TYPE="n2-custom-8-16384"
 #TYPE="n2-custom-8-4096"
 ZONE="us-west1-b"
-#IMAGE="centos-8-v20210721"
-#IMAGE="projects/rocky-linux-cloud/global/images/rocky-linux-8-v20220126"
-#IMAGE="projects/ubuntu-os-cloud/global/images/ubuntu-2004-focal-v20220118"
-IMAGE="projects/ubuntu-os-cloud/global/images/ubuntu-1804-bionic-v20220131"
-#IMAGE="projects/rhel-cloud/global/images/rhel-8-v20220126"
-#IMAGE="projects/rhel-cloud/global/images/rhel-7-v20220126"
+DEFAULT_IMAGE="projects/ubuntu-os-cloud/global/images/ubuntu-2004-focal-v20220118"
 
 function usage {
   cat <<EOT
-Usage: gc-create.sh -n <instance name> [-l <labelname=value>] [-t <type>] [-p <project>] [-d <size>]
+Usage: gc-create.sh -n <instance name> [-l <labelname=value>] [-t <type>] [-p <project>] [-d <size>] [-i image]
 EOT
 }
 
-while getopts n:l:t:hp:d: flag
+while getopts n:l:t:hp:d:i: flag
 do
     case "${flag}" in
         n) NAME=${OPTARG};;
@@ -25,6 +20,7 @@ do
         t) TYPE=${OPTARG};;
         p) PROJECT=${OPTARG};;
         d) EXTRADISK=${OPTARG};;
+        i) IMAGETXT=${OPTARG};;
         h) usage; exit 0;;
     esac
 done
@@ -34,6 +30,18 @@ if [ -z $NAME ]; then
   usage
   exit -1
 fi
+
+if [ -z ${IMAGETXT} ]; then
+  IMAGE=${DEFAULT_IMAGE}
+fi
+
+case "${IMAGETXT}" in
+    "rhel8") IMAGE="projects/rhel-cloud/global/images/rhel-8-v20220519";;
+    "rhel7") IMAGE="projects/rhel-cloud/global/images/rhel-7-v20220126";;
+    "ubuntu") IMAGE="projects/ubuntu-os-cloud/global/images/ubuntu-1804-bionic-v20220131";;
+    "rocky8") IMAGE="projects/rocky-linux-cloud/global/images/rocky-linux-8-v20220126";;
+    "centos") IMAGE="centos-8-v20210721";;
+esac
 
 cat <<EOT
 NAME=$NAME

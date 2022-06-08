@@ -47,7 +47,7 @@ echo $LINE
 ZONE=$(echo ${LINE} | cut -d" " -f 2)
 IP=$(echo ${LINE} | perl -ne '/\d\s+?(\d+.\d+.\d+.\d+)\s*?[A-Z]*$/; print "$1\n"')
 
-OUTPUT=$(gcloud beta compute instances delete ${NAME} --project=${PROJECT} --zone=${ZONE} 2>&1 |tee /dev/tty)
+OUTPUT=$(gcloud beta compute instances delete ${NAME} --delete-disks=all --project=${PROJECT} --zone=${ZONE} 2>&1 |tee /dev/tty)
 
 echo "${OUTPUT}" | grep "ERROR"
 if [[ $? != 1 ]]; then
